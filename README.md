@@ -20,3 +20,4 @@
 # 4. Notes
 
     - created by following the tutorial on [boot.dev](https://www.boot.dev/courses/build-asteroids-python)
+    - music is only supported on Windows. Music source: [FilippoGameAudio](https://www.filippovicarelli.com/8bit-game-background-music)

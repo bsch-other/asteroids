@@ -1,6 +1,7 @@
 # this allows us to use code from
 # the open-source pygame library
 # throughout this file
+import os
 import sys
 import pygame
 from constants import *
@@ -9,9 +10,32 @@ from shot import Shot
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
 
+if not pygame.mixer:
+    print("Sound disabled - pygame.mixer is unavailable.")
+
+main_dir = os.path.split(os.path.abspath(__file__))[0]
+data_dir = os.path.join(main_dir, "data")
+
+def load_music(name):
+    class NoneSound:
+        def play(self):
+            pass
+
+    if not pygame.mixer or not pygame.mixer.get_init():
+        return NoneSound()
+
+    fullname = os.path.join(data_dir, name)
+    pygame.mixer.music.load(fullname)
 
 def main():
     pygame.init()
+
+    # handle music if on win
+    if os.name == 'nt':
+        pygame.mixer.init()
+        load_music("POL-cactus-land-short.wav")
+        pygame.mixer.music.play()
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     
     black = pygame.Color(0,0,0)
